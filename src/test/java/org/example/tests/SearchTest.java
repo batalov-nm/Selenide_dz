@@ -4,7 +4,7 @@ import org.example.pages.HomePage;
 import org.example.pages.SearchPage;
 import org.junit.Test;
 
-public class SearchTest extends BaseTest{
+public class SearchTest extends BaseTest {
     HomePage homePage = new HomePage();
     SearchPage searchPage = new SearchPage();
     public final String CITY_NAME = "Сеул";
@@ -18,12 +18,11 @@ public class SearchTest extends BaseTest{
                 .pickRandomDates()
                 .clickFindButton();
 
-        searchPage // .openSearchPage()
+        searchPage
                 .rejectDialogWindow()
-//                .rejectCookies()
                 .clickFindOnMapButton()
                 .hoverOverFirstHotel()
-                .hoverOverSelectedPinPoint();
+                .clickSelectedPinPoint();
 //                .getFirstInfoFromList();
     }
 }

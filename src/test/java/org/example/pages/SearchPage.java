@@ -19,7 +19,7 @@ public class SearchPage {
     private final By rejectCookiesButton = By.xpath("//button[@id='onetrust-reject-all-handler']");
     private final By firstHotelPrice = By.xpath("//h2[@data-testid='header-title']");
     private final By pinPoint = By.xpath("//div[contains(@style, 'z-index: 101')]");
-//    private final By avgRate = By.xpath("")
+    //    private final By avgRate = By.xpath("")
     private final By firstCard = By.xpath("//a[@class='b6ae4fce06']");
     private final By dialogWindow = By.xpath("//div[contains(@role, 'dialog') and contains(@class, 'f0c216ee26 c676dd76fe b5018b639f')]");
     private final By dialogWindowCloseButton = By.xpath("//button[@aria-label='Dismiss sign in information.']");
@@ -29,7 +29,8 @@ public class SearchPage {
         Selenide.open(CONFIG.searchUrl());
         return this;
     }
-    public List<Object> getFirstInfoFromList () {
+
+    public List<Object> getFirstInfoFromList() {
         List<Object> newList = new ArrayList<>();
 
         $(hotelCollection).shouldBe(Condition.visible, Duration.ofSeconds(3));
@@ -69,8 +70,8 @@ public class SearchPage {
         return this;
     }
 
-    public SearchPage hoverOverSelectedPinPoint() {
-        $(pinPoint).hover();
+    public SearchPage clickSelectedPinPoint() {
+        $(pinPoint).click();
         return this;
     }
 }

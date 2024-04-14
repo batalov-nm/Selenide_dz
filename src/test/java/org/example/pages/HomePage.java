@@ -2,22 +2,18 @@ package org.example.pages;
 
 import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.Selenide;
-import org.aeonbits.owner.Config;
-import org.example.config.ProjectConfig;
 import org.example.utils.DatePicker;
 import org.openqa.selenium.By;
 
 import java.time.Duration;
 
 import static com.codeborne.selenide.Selenide.$;
-import static com.codeborne.selenide.Selenide.sleep;
 import static org.example.tests.BaseTest.CONFIG;
 
 public class HomePage {
 
     private final By searchInputCity = By.xpath("//input[@class='eb46370fe1']");
-//    private final By dateContainer = By.xpath("//div[@data-testid='searchbox-dates-container']"); //data-testid="searchbox-dates-container"
-    private final By dateContainer = By.xpath("//div[@class='a1139161bf']"); ////div[@class="a1139161bf"]
+    private final By dateContainer = By.xpath("//div[@class='a1139161bf']");
     private final By datePicker = By.xpath("//div[@data-testid='searchbox-datepicker-calendar']");
     private final By dateBegin = By.xpath(String.format("//span[@data-date='%s']", new DatePicker().todayDate()));
     private final By dateEnd = By.xpath(String.format("//span[@data-date='%s']", new DatePicker().someDaysAfterDate()));
@@ -26,6 +22,7 @@ public class HomePage {
     private final By rejectCookiesButton = By.xpath("//button[@id='onetrust-reject-all-handler']");
     private final By dialogWindow = By.xpath("//div[@role='dialog']");
     private final By dialogWindowCloseButton = By.xpath("//button[@aria-label='Скрыть меню входа в аккаунт.']");
+
     public HomePage openHomePage() {
         Selenide.open(CONFIG.baseUrl());
         return this;
@@ -38,7 +35,6 @@ public class HomePage {
     }
 
     public HomePage pickRandomDates() {
-//        $(dateContainer).click();
         $(datePicker).shouldBe(Condition.visible);
         $(dateBegin).click();
         $(dateEnd).click();
