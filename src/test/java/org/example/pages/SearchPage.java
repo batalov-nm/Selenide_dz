@@ -9,8 +9,7 @@ import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.codeborne.selenide.Selenide.$;
-import static com.codeborne.selenide.Selenide.$$;
+import static com.codeborne.selenide.Selenide.*;
 import static org.example.tests.BaseTest.CONFIG;
 
 public class SearchPage {
@@ -18,34 +17,34 @@ public class SearchPage {
     public final By hotelCollection = By.xpath("//ul[@class='ced4498db9']");
     private final By rejectCookiesButton = By.xpath("//button[@id='onetrust-reject-all-handler']");
     private final By firstHotelPrice = By.xpath("//h2[@data-testid='header-title']");
-    private final By pinPoint = By.xpath("//div[contains(@style, 'z-index: 101')]");
+    private final By pinPoint = By.xpath("//div[contains(@style, 'z-index: 101')]/div/div");
     //    private final By avgRate = By.xpath("")
     private final By firstCard = By.xpath("//a[@class='b6ae4fce06']");
     private final By dialogWindow = By.xpath("//div[contains(@role, 'dialog') and contains(@class, 'f0c216ee26 c676dd76fe b5018b639f')]");
     private final By dialogWindowCloseButton = By.xpath("//button[@aria-label='Dismiss sign in information.']");
 
+    private final By hotelName = By.xpath("//h2[@class='e1eebb6a1e e3c18fe918']");
+    private final By hotelAvgRate = By.xpath("//div[@class='c624d7469d f034cf5568 dab7c5c6fa a937b09340 a3214e5942 dc7f26e57f']/div");
+    private final By hotelPrice = By.xpath("//span[@class='f6431b446c d9e6004b60']");
+    private List<String> firstHolelValueList = new ArrayList<>();
 
     public SearchPage openSearchPage() {
         Selenide.open(CONFIG.searchUrl());
         return this;
     }
 
-    public List<Object> getFirstInfoFromList() {
-        List<Object> newList = new ArrayList<>();
-
+    public List<String> getFirstInfoFromList() {
         $(hotelCollection).shouldBe(Condition.visible, Duration.ofSeconds(3));
 
         SelenideElement firstElement = $$(hotelCollection).get(0);
+        String hotelNameAsValue = $(hotelName).shouldBe(Condition.visible).getText();
+        String hotelAvgRateAsValue = $(hotelAvgRate).shouldBe(Condition.visible).getText();
+        String hotelPriceAsValue = $(hotelPrice).shouldBe(Condition.visible).getText();
 
-        String hotelName = firstElement.getAttribute("h2");
-        int avgRate = $$(By.xpath("//span[@data-testid='rating-squares']")).size();
-        String hotelPrice = firstElement.getAttribute("span");
-
-        newList.add(firstElement);
-        newList.add(hotelName);
-        newList.add(avgRate);
-        newList.add(hotelPrice);
-        return newList;
+        firstHolelValueList.add(hotelNameAsValue);
+        firstHolelValueList.add(hotelAvgRateAsValue);
+        firstHolelValueList.add(hotelPriceAsValue);
+        return firstHolelValueList;
     }
 
     public SearchPage clickFindOnMapButton() {
@@ -71,7 +70,7 @@ public class SearchPage {
     }
 
     public SearchPage clickSelectedPinPoint() {
-        $(pinPoint).click();
+        $(firstCard).shouldBe(Condition.clickable).click();
         return this;
     }
 }
